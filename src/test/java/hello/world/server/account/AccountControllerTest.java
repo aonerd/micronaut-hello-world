@@ -1,6 +1,7 @@
 package hello.world.server.account;
 
 import hello.world.server.account.api.model.Account;
+import hello.world.server.test.base.IntegrationTestBase;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
@@ -13,28 +14,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;;
 
-public class AccountControllerTest {
-
-    private static EmbeddedServer server;
-    private static HttpClient client;
-
-    @BeforeAll
-    public static void setupServer() {
-        server = ApplicationContext.run(EmbeddedServer.class);
-        client = server
-                .getApplicationContext()
-                .createBean(HttpClient.class, server.getURL());
-    }
-
-    @AfterAll
-    public static void stopServer() {
-        if(server != null) {
-            server.stop();
-        }
-        if(client != null) {
-            client.stop();
-        }
-    }
+public class AccountControllerTest extends IntegrationTestBase{
 
     @Test
     public void testPing(){

@@ -1,47 +1,23 @@
 package hello.world.server.account;
 
 import hello.world.server.account.api.model.Account;
-import io.micronaut.context.ApplicationContext;
+import hello.world.server.account.service.AccountService;
+import hello.world.server.test.base.IntegrationTestBase;
+
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
-import io.micronaut.http.client.HttpClient;
-import io.micronaut.runtime.server.EmbeddedServer;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
 ;
 
-public class AccountControllerWithMockTest {
-
-    private static EmbeddedServer server;
-    private static HttpClient client;
+public class AccountControllerWithMockTest extends IntegrationTestBase{
 
 
-    static AccountService accountService = mock(AccountService.class);
-
-    @BeforeAll
-    public static void setupServer() {
-        server = ApplicationContext.run(EmbeddedServer.class);
-        client = server
-                .getApplicationContext()
-                .registerSingleton(AccountService.class, accountService)
-                .createBean(HttpClient.class, server.getURL());
-    }
-
-    @AfterAll
-    public static void stopServer() {
-        if(server != null) {
-            server.stop();
-        }
-        if(client != null) {
-            client.stop();
-        }
-    }
+    static AccountService accountService = createMock(AccountService.class);
 
     @Test
     public void testPing(){

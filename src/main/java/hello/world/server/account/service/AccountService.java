@@ -1,4 +1,4 @@
-package hello.world.server.account;
+package hello.world.server.account.service;
 
 import javax.inject.Singleton;
 
