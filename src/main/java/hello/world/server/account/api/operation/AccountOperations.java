@@ -13,6 +13,6 @@
 //    List<T> list();
 //
 //    @Get("/{id}")
-//    T byId(String id);
+//    T getById(String id);
 //
 //}

@@ -3,17 +3,13 @@ package hello.world.server.profile.controller;
 import hello.world.server.profile.api.model.Profile;
 import hello.world.server.profile.api.operation.ProfileOperations;
 import hello.world.server.profile.service.ProfileService;
-import io.micronaut.http.MediaType;
-import io.micronaut.http.annotation.Consumes;
 import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
-import io.micronaut.validation.Validated;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
-import java.util.List;
 
 @Controller("/profiles")
+@Slf4j
 public class ProfileController implements ProfileOperations{
 
     ProfileService profileService;
@@ -24,18 +20,7 @@ public class ProfileController implements ProfileOperations{
     }
 
     @Override
-    public String ping() {
-        return "Hello world from profiles";
-    }
-
-    @Override
-    public List list() {
-        return profileService.list();
-    }
-
-
-    @Override
-    public Profile byId(String id) {
+    public Profile getById(String id) {
         return profileService.fetchById(id);
     }
 
@@ -45,13 +30,15 @@ public class ProfileController implements ProfileOperations{
     }
 
     @Override
-    public Profile update(Profile profile) {
-        return profileService.update(profile);
+    public Profile update(String id, Profile profile){
+        log.info("Update [{}] [{}]", id, profile);
+        return profileService.fetchById(id);
     }
 
     @Override
-    public Profile partialUpdate(Profile profile) {
-        return profileService.partialUpdate(profile);
+    public Profile partialUpdate(String id, Profile profile){
+        log.info("Patch [{}] [{}]", id, profile);
+        return profileService.partialUpdate(id, profile);
     }
 
 }
